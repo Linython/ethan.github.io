@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    div {
+        padding: 10px;
+    }
+    button {
+        background-color: deeppink;
+        color: aquamarine;
+        border: none;
+        border-radius: 5px;
+        width: 200px;
+        height: 30px;
+    }
+    button:hover{
+        background-color: aqua;
+        color: black;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="text" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.21.0/d3-legend.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        let data01=[[0, 16],[1, 15],[2, 15],[3, 16],[4, 16],[5, 15],[6, 15],[7, 16],[8, 15],[9, 15],[10, 16],[11, 16],[12, 15],[13, 15],[14, 16],[15, 15],[16, 15],[17, 16],[18, 16],[19, 15],[20, 16],[21, 16],[22, 16],[23, 15],[24, 15],[25, 16]]
+        let data02=[[0, 19],[1, 19],[2, 17],[3, 19],[4, 18],[5, 18],[6, 18],[7, 18],[8, 17],[9, 17],[10, 18],[11, 17],[12, 18],[13, 17],[14, 17],[15, 17],[16, 18],[17, 17],[18, 17],[19, 19],[20, 19],[21, 19],[22, 18],[23, 19],[24, 19],[25, 19]]
+        let data03=[[0, 17],[1, 17],[2, 17],[3, 17],[4, 17],[5, 17],[6, 17],[7, 17],[8, 17],[9, 17],[10, 17],[11, 17],[12, 17],[13, 17],[14, 17],[15, 17],[16, 17],[17, 17],[18, 17],[19, 17],[20, 17],[21, 17],[22, 17],[23, 17],[24, 17],[25, 17]]
+        let data04=[[0, 18],[1, 18],[2, 18],[3, 18],[4, 18],[5, 18],[6, 18],[7, 18],[8, 18],[9, 18],[10, 18],[11, 18],[12, 18],[13, 18],[14, 18],[15, 18],[16, 18],[17, 18],[18, 18],[19, 18],[20, 18],[21, 18],[22, 18],[23, 18],[24, 18],[25, 18]]
+
+        let data05=[[0, 15],[1, 16],[2, 16],[3, 15],[4, 16],[5, 15],[6, 15],[7, 15],[8, 16],[9, 16],[10, 15],[11, 15],[12, 15],[13, 15],[14, 16],[15, 16],[16, 16],[17, 15],[18, 15],[19, 15],[20, 15],[21, 16],[22, 16],[23, 15],[24, 16],[25, 16]]
+        let data06=[[0, 20],[1, 20],[2, 19],[3, 20],[4, 19],[5, 19],[6, 20],[7, 20],[8, 18],[9, 18],[10, 18],[11, 19],[12, 18],[13, 18],[14, 20],[15, 18],[16, 19],[17, 18],[18, 20],[19, 18],[20, 20],[21, 19],[22, 18],[23, 19],[24, 19],[25, 20]]
+        let data07=[[0, 18],[1, 18],[2, 17],[3, 18],[4, 18],[5, 17],[6, 17],[7, 18],[8, 18],[9, 18],[10, 17],[11, 17],[12, 18],[13, 18],[14, 18],[15, 18],[16, 18],[17, 17],[18, 18],[19, 18],[20, 18],[21, 17],[22, 17],[23, 17],[24, 17],[25, 17]]
+        let data08=[[0, 21],[1, 19],[2, 20],[3, 20],[4, 20],[5, 19],[6, 21],[7, 21],[8, 20],[9, 21],[10, 21],[11, 20],[12, 20],[13, 19],[14, 19],[15, 20],[16, 21],[17, 20],[18, 20],[19, 19],[20, 21],[21, 20],[22, 20],[23, 20],[24, 21],[25, 21]]
+        let data09=[[0, 22],[1, 25],[2, 22],[3, 23],[4, 24],[5, 22],[6, 25],[7, 25],[8, 24],[9, 22],[10, 25],[11, 24],[12, 25],[13, 23],[14, 23],[15, 22],[16, 24],[17, 23],[18, 25],[19, 24],[20, 23],[21, 22],[22, 24],[23, 22],[24, 24],[25, 22]]
+        // let data10=[[0, 24],[1, 25],[2, 24],[3, 24],[4, 24],[5, 25],[6, 25],[7, 25],[8, 25],[9, 25],[10, 25],[11, 24],[12, 25],[13, 24],[14, 24],[15, 25],[16, 25],[17, 25],[18, 24],[19, 25],[20, 25],[21, 25],[22, 25],[23, 24],[24, 24],[25, 25]]
+        // let data11=[[0, 28],[1, 30],[2, 30],[3, 28],[4, 28],[5, 29],[6, 29],[7, 30],[8, 30],[9, 28],[10, 30],[11, 29],[12, 28],[13, 28],[14, 29],[15, 28],[16, 28],[17, 28],[18, 29],[19, 28],[20, 30],[21, 30],[22, 28],[23, 29],[24, 30],[25, 30]]
+
+        // let data12=[[0, 16],[1, 17],[2, 15],[3, 16],[4, 17],[5, 15],[6, 15],[7, 15],[8, 15],[9, 16],[10, 15],[11, 15],[12, 15],[13, 15],[14, 16],[15, 16],[16, 16],[17, 16],[18, 17],[19, 17],[20, 16],[21, 17],[22, 16],[23, 15],[24, 17],[25, 15]]
+        // let data13=[[0, 24],[1, 25],[2, 22],[3, 23],[4, 22],[5, 25],[6, 24],[7, 24],[8, 22],[9, 24],[10, 22],[11, 24],[12, 23],[13, 25],[14, 25],[15, 24],[16, 23],[17, 23],[18, 23],[19, 22],[20, 25],[21, 24],[22, 25],[23, 22],[24, 22],[25, 23]]
+        // let data14=[[0, 19],[1, 19],[2, 19],[3, 20],[4, 19],[5, 20],[6, 20],[7, 19],[8, 20],[9, 19],[10, 20],[11, 19],[12, 19],[13, 19],[14, 19],[15, 19],[16, 19],[17, 19],[18, 19],[19, 20],[20, 20],[21, 20],[22, 20],[23, 19],[24, 20],[25, 19]]
+        // let data15=[[0, 17],[1, 16],[2, 16],[3, 17],[4, 16],[5, 17],[6, 17],[7, 16],[8, 17],[9, 17],[10, 16],[11, 16],[12, 17],[13, 17],[14, 17],[15, 17],[16, 16],[17, 17],[18, 17],[19, 16],[20, 17],[21, 16],[22, 16],[23, 17],[24, 16],[25, 16]]
+
+        // let data16=[[0, 19],[1, 19],[2, 18],[3, 18],[4, 19],[5, 19],[6, 19],[7, 18],[8, 19],[9, 19],[10, 19],[11, 18],[12, 19],[13, 19],[14, 18],[15, 19],[16, 19],[17, 18],[18, 18],[19, 18],[20, 19],[21, 19],[22, 19],[23, 19],[24, 18],[25, 18]]
+        // let data17=[[0, 29],[1, 29],[2, 29],[3, 28],[4, 28],[5, 29],[6, 28],[7, 29],[8, 28],[9, 29],[10, 28],[11, 28],[12, 28],[13, 28],[14, 29],[15, 28],[16, 29],[17, 28],[18, 29],[19, 28],[20, 28],[21, 29],[22, 28],[23, 28],[24, 28],[25, 29]]
+        // let data18=[[0, 12],[1, 13],[2, 13],[3, 11],[4, 12],[5, 13],[6, 12],[7, 12],[8, 12],[9, 11],[10, 13],[11, 11],[12, 13],[13, 12],[14, 11],[15, 13],[16, 12],[17, 13],[18, 13],[19, 13],[20, 13],[21, 13],[22, 11],[23, 13],[24, 11],[25, 13]]
+        // let data19=[[0, 17],[1, 18],[2, 19],[3, 18],[4, 18],[5, 19],[6, 17],[7, 17],[8, 17],[9, 17],[10, 18],[11, 18],[12, 19],[13, 18],[14, 19],[15, 18],[16, 17],[17, 17],[18, 17],[19, 17],[20, 17],[21, 18],[22, 17],[23, 18],[24, 17],[25, 18]]
+
+    // 数据点形状设置
+    let tri = d3.symbol().type(d3.symbolTriangle).size(50)
+    cir = d3.symbol().type(d3.symbolCircle)
+    cro = d3.symbol().type(d3.symbolCross).size(50)
+    dia = d3.symbol().type(d3.symbolDiamond).size(50)
+    sta = d3.symbol().type(d3.symbolStar).size(50)
+
+    // pic函数用于绘制图片的坐标轴
+    function pic(max, min) {
+      // 图表的宽度和高度
+      let width = 600;
+      let height = 600;
+      // 边距
+      let padding = {top: 50, right: 50, bottom: 50, left: 50};
+      // 绘制坐标抽
+      let xScale = d3.scaleLinear()
+          .domain([0, 25])
+          .range([0, width - padding.left - padding.right]);
+      let yScale = d3.scaleLinear()
+          .domain([min, max])
+          .range([height - padding.top - padding.bottom, 0]);
+      let svg = d3.select('body')
+          .append('svg')
+          .attr('width', width + 'px')
+          .attr('height', height + 'px');
+      let xAxis = d3.axisBottom()
+          .ticks(25) // 显示刻度的数量，即步长。
+          .scale(xScale);
+      let yAxis = d3.axisLeft()
+          .ticks(10)
+          .scale(yScale);
+
+      svg.append('g')
+          .attr('class', 'axis')
+          .attr('transform', 'translate(' + padding.left + ',' + (height - padding.bottom) + ')')
+          .call(xAxis);
+
+      svg.append('g')
+          .attr('class', 'axis')
+          .attr('transform', 'translate(' + padding.left + ',' + padding.top + ')')
+          .call(yAxis);
+
+      let linePath = d3.line()
+          .x(function (d) {
+              return xScale(d[0])
+          })
+          .y(function (d) {
+              return yScale(d[1])
+          });
+
+      //增加一个x轴的标签
+      svg.append("text")
+          .attr("transform", "translate(" + width / 2 + "," + (height - padding.bottom + 40) + ")")
+          .style("text-anchor", "middle")
+          .style('font-size', '20px')
+          .attr('fill', 'black')
+          .text("Day post inject");
+      //添加y轴
+      svg.append("text")
+          .text('Mouse weight (g)')
+          .style("font-size", "20px")
+          .style("text-anchor", "start")
+          .attr("transform", "rotate(-90 200 180)");
+
+        // return中的lines函数用于绘制折线图
+        //   data: 绘图数据
+        //   color: 折线颜色
+        //   legend: 数据点形状
+        //   color_line: 为折线定义一个class用于鼠标点击时的放大效果与显示数据
+        //   name: 图例的文字
+        //   class_legend: 为图例（legend）定义一个class用于修改每条折线图例的位置
+        //   x, y: 图例的位置
+      return {
+          lines: function (data, color, legend, color_line, name, x, y, class_legend) {
+              svg.append('g')
+                  .append('path')
+                  .attr('class', 'line-path')
+                  .attr('transform', 'translate(' + padding.left + ',' + padding.top + ')')
+                  .attr('d', linePath(data))
+                  .attr('fill', 'none')
+                  .attr('stroke-width', 1)
+                  .attr('stroke', color);
+              svg.append('g')
+                  .selectAll('.triangle')
+                  .data(data)
+                  .enter()
+                  .append('path')
+                  .attr('d', legend.size(50))
+                  .attr('transform', function (d) {
+                      return 'translate(' + (xScale(d[0]) + padding.left) + ',' + (yScale(d[1]) + padding.top) + ')';
+                  })
+                  .attr('fill', color)
+                  .attr('class', color_line)
+              let a = "." + color_line
+              svg.selectAll(a)
+                  .on("mouseover", function (d, i) {
+                      d3.select(this)
+                          .attr("fill", "red")
+                          .attr("d", legend.size(120))
+                      svg.append('text')
+                          .text(i[1])
+                          .attr('class', 'tooltip1')
+                          .attr('x', xScale(i[0]) + 40)
+                          .attr('y', yScale(i[1]) + 35)
+                          .attr("font-family", "sans-serif")
+                          .attr("font-size", "11px")
+                          .attr("fill", "red")
+                  })
+                  .on("mouseout", function () {
+                      d3.select(this)
+                          .attr("fill", color)
+                          .attr('d', legend.size(50))
+                      d3.select('.tooltip1').remove()
+                  });
+              let ordinal1 = d3.scaleOrdinal()
+                  .domain([name])
+                  .range([color]);
+              svg.append('g')
+                  .attr('class', class_legend)
+                  .attr('transform', 'translate(' + x + ',' + y + ')');
+              let leg_tri = d3.legendColor()
+                  .shapePadding(10)
+                  .scale(ordinal1);
+              let b = "." + class_legend
+              svg.select(b)
+                  .call(leg_tri);
+          }
+      }
+    }
+
+
+    function WT17() {
+        let a = pic(max = 21, min = 14) // 绘制坐标轴系统
+        a.lines(data = data01, color = 'grey', legend = tri, color_line = 'grey_line', name = 'WT1', x = 300, y = 70, class_legend = 'tri') //添加折线
+        a.lines(data = data02, color = 'blue', legend = cir, color_line = 'blue_line', name = 'WT2', x = 300, y = 90, class_legend = 'cir') //添加折线
+        a.lines(data = data03, color = '#00aee6', legend = cro, color_line = 'gb_line', name = 'WT3', x = 300, y = 110, class_legend = 'cro') //添加折线
+        a.lines(data = data04, color = '#8e43e7', legend = dia, color_line = 'e43e7', name = 'WT4', x = 300, y = 130, class_legend = 'dia') //添加折线
+    }
+    function WT814(){
+        let a = pic(max=27, min=14)
+        a.lines(data=data05, color='grey', legend=tri, color_line='grey_line', name='WT1', x=300, y=70, class_legend='tri')
+        a.lines(data=data06, color='blue', legend=cir, color_line='blue_line', name='WT2', x=300, y=90, class_legend='cir')
+        a.lines(data=data07, color='#00aee6', legend=cro, color_line='gb_line', name='WT3', x=300, y=110, class_legend='cro')
+        a.lines(data=data08, color='#8e43e7', legend=dia, color_line='e43e7', name='WT4', x=300, y=130, class_legend='dia')
+        a.lines(data=data09, color='#99CC99', legend=cir, color_line='ff', name='WT5', x=300, y=150, class_legend='di')
+    }
+    </script>
+</head>
+<body>
+<!--
+    在button标签中将绘图函数与其链接
+-->
+    <div id="btn1">
+        <button type="button" id="button1" onclick="WT17()">WT1-7</button>
+    </div>
+
+    <div id="btn2">
+        <button type="button" id="button2" onclick="WT814()">WT8-14</button>
+    </div>
+</body>
+</html>
