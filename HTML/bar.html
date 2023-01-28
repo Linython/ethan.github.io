@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bar</title>
+</head>
+<body>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.21.0/d3-legend.min.js"></script>
+<script>
+    let width = 600;
+    let height = 600;
+    let padding = { top: 50, right: 50, bottom: 50, left: 100 };
+    let render = data=> {
+        let xValue = d => d['Country']
+        let yValue = d => d['Population']
+        // let max = d3.max(yValue)
+        let xScale = d3.scaleBand()
+            .domain(data.map(d => d.Country))
+            .range([0, width - padding.left - padding.right])
+            .padding(0.1);
+
+        let yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, d=>d.Population)+5])
+            .range([0, height - padding.top - padding.bottom])
+        let svg = d3.select('body')
+            .append('svg')
+            .attr('width', width + 'px')
+            .attr('height', height + 'px');
+        let xAxis = d3.axisBottom()
+            .scale(xScale);
+        let yAxis = d3.axisLeft()
+            .scale(yScale);
+        svg.append('g')
+            .attr('class', 'axis')
+            .attr('transform', 'translate(' + padding.left + ',' + (height - padding.bottom) + ')')
+            .call(xAxis);
+        svg.append('g')
+            .attr('class', 'axis')
+            .attr('transform', 'translate(' + padding.left + ',' + padding.top + ')')
+            .call(yAxis);
+        svg.selectAll('rect').data(data)
+            .enter()
+            .append('rect')
+            .attr('x', d=>xScale(xValue(d)))
+            .attr('width', xScale.bandwidth())
+            .attr('height', d => yScale(yValue(d)))
+            .attr('transform', 'translate(100, 50)')
+            .attr('fill', 'blue')
+    }
+    d3.csv('data.csv').then(data => {
+        data.forEach(d => {
+            d['Population'] = +(d['Population']);
+        });
+        // console.log(data)
+        render(data)
+    })
+</script>
+</body>
+</html>

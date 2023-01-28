@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Group pic</title>
+</head>
+<body>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.21.0/d3-legend.min.js"></script>
+<script>
+  // 图表的宽度和高度
+  let width = 600;
+  let height = 600;
+  // 边距
+  let padding = {top: 50, right: 50, bottom: 50, left: 50};
+  let svg = d3.select('body')
+          .append('svg')
+          .attr('width', width + 'px')
+          .attr('height', height + 'px');
+  data = [
+    {name: "jim",   amount: "34.0",   date: "11/12/2015"},
+    {name: "carl",  amount: "120.11", date: "11/12/2015"},
+    {name: "stacy", amount: "12.01",  date: "01/04/2016"},
+    {name: "stacy", amount: "34.05",  date: "01/04/2016"}
+  ]
+  let a = d3.group(data, d => d.name)
+  svg.append('g')
+    .attr('d', a)
+</script>
+</body>
+</html>
